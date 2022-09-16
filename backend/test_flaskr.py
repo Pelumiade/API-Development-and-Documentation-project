@@ -19,13 +19,7 @@ class TriviaTestCase(unittest.TestCase):
             'postgres', 'fola', 'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
         
-        self.new_question = {
-            'questoin': 'Question Test',
-            'answer': 'any answer',
-            'category': 2,
-            'difficulty': 1
-        }
-
+      
 
         # binds the app to the current context
         with self.app.app_context():
@@ -42,23 +36,7 @@ class TriviaTestCase(unittest.TestCase):
     TODO
     Write at least one test for each test for successful operation and for expected errors.
     """
-    def test_get_categories(self):
-        res = self.client().get('/categories')
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertTrue(data['total_categoreis'])
-        self.assertTrue(len(data['categories']))
-
-    def test_404_sent_requesting_categories_beyond_valid_page(self):
-        res = self.client().get('categories/1000')
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
-        self.assertTrue(data['message'], 'resource not found')
-
+    
     def test_get_paginated_questions(self):
         res = self.client().get('/questions')
         data = json.loads(res.data)
